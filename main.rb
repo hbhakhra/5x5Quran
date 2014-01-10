@@ -40,3 +40,7 @@ delete '/:id' do
 	user = User.get params[:id]
 	user.destroy
 end
+
+delete '/clear' do 
+	User.destroy
+end
