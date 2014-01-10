@@ -25,16 +25,14 @@ get '/users' do
 	erb :users
 end
 
-get '/:name' do
+post '/:name' do
 	user = User.new
 	user.name = params[:name]
 	user.save
 	redirect '/'
 end
 
-post '/:name' do
-	user = User.new
-	user.name = params[:name]
-	user.save
-	redirect '/'
+delete '/:name' do
+	user = User.get params[:name]
+	user.destroy
 end
