@@ -9,7 +9,9 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/app-dev"
 class User 
   include DataMapper::Resource  
   property :id, Serial  
-  property :name, String, :unique => true, :required => true 
+  property :fname, String 
+  property :lname, String
+  property :email, String, :required => true
   property :created_at, DateTime, :default => Time.now
 end  
   
@@ -25,14 +27,16 @@ get '/users' do
 	erb :users
 end
 
-post '/:name' do
+post '/user' do
 	user = User.new
-	user.name = params[:name]
+	user.fname = params[:fname]
+	user.lname = params[:lname]
+	user.email = params[:email]
 	user.save
-	redirect '/'
+	redirect '/users'
 end
 
-delete '/:name' do
-	user = User.get params[:name]
+delete '/:id' do
+	user = User.get params[:id]
 	user.destroy
 end

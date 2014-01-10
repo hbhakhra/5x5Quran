@@ -34,7 +34,9 @@
     <article>  
       <p>  
         <table>
-          <tr><td>First Name:</td><td><%= user.name%> </td></tr>
+          <tr><td>First Name:</td><td><%= user.fname%> </td></tr>
+          <tr><td>Last Name:</td><td><%= user.lname%></td></tr>
+          <tr><td>Email:</td><td><%= user.email%></td></tr>
         </table>
         <span><a href="/user/<%= user.id %>">[edit]</a></span>
       </p>  
