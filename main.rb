@@ -51,6 +51,16 @@ delete '/:id' do
 	user.destroy
 end
 
+put '/:userId/resetStreak' do
+  user = User.get params[:userId]
+  newest = user.streaks.last(:user => user)
+  newest.end = Time.now
+  newest.save
+  user.streaks << Streak.create
+  user.save
+  redirect '/users'
+end
+
 delete '/clear' do 
 	User.destroy
 end
