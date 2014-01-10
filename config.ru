@@ -1,0 +1,1 @@
+set :database, ENV['DATABASE_URL'] || 'postgres://localhost/app-dev'

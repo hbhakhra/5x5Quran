@@ -1,0 +1,19 @@
+<table>
+  <caption>Users streaks</caption>
+  <% user.streaks.each do |streak| %>
+    <tr>
+      <td>Start:</td>
+      <td><%= streak.start.strftime("%m/%d/%Y at %I:%M%p") %></td>
+      <td>End:</td>
+      <td>
+        <% if streak.end %>
+        <%= streak.end.strftime("%m/%d/%Y at %I:%M%p") %>
+        <% else %>
+        <%= Time.now.strftime("%m/%d/%Y at %I:%M%p") %>
+        <% end %>
+      </td>
+      <td>Elapsed Time:</td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>

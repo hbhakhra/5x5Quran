@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%=@title%></title>
+  <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+  <hgroup>
+    <h1><a href="/users">User list</a></h1>
+    <h2>List of users and their Quran streaks</h2>
+  </hgroup>
+</header>
+<div>
+  <section id="add">
+    <h4>Register User</h3>
+    <form action="/user" method="post">
+      <table>
+        <tr>
+          <td><label for="fname">First Name:</label></td>
+          <td><input type="text" id="fname" name="fname"></td>
+        <tr>
+          <td><label for="lname">Last Name:</label></td>
+          <td><input type="text" id="lname" name="lname"></td>
+        <tr>
+          <td><label for="email">Email address:</label></td>
+          <td><input type="text" id="email" name="email"></td>
+      </table>
+      <input type="submit" value="Create user">
+    </form>
+  </section>
+
+  <% @users.each do |user| %>  
+    <article>  
+      <p>  
+        <table>
+          <tr><td>First Name:</td><td><%= user.fname%> </td></tr>
+          <tr><td>Last Name:</td><td><%= user.lname%></td></tr>
+          <tr><td>Email:</td><td><%= user.email%></td></tr>
+        </table>
+        <span><a href="/user/<%= user.id %>">[edit]</a></span>  
+      </p>  
+      <p class="meta">Created: <%= user.created_at %></p>  
+      <div>
+        <form action="/<%= user.id %>/resetStreak" method="post" id="edit">  
+          <input type="hidden" name="_method" value="put">  
+          <input type="submit" class="right" value="New streak!">  
+        </form>
+      </div>
+      <table>
+        <caption>Users streaks</caption>
+        <% user.streaks.each do |streak| %>
+          <tr>
+            <td>Start:</td>
+            <td><%= streak.start.strftime("%m/%d/%Y at %I:%M%p") %></td>
+            <td>End:</td>
+            <td>
+              <%= 
+                endTime = (streak.end) ? streak.end : Time.now
+                endTime.strftime("%m/%d/%Y at %I:%M%p")
+               %>
+            </td>
+            <td>Days:</td>
+            <td><%=
+              endTime = (streak.end) ? streak.end : Time.now
+              days = (endTime.to_date - streak.start.to_date).round
+              "#{days} days"
+            %></td>
+          </tr>
+        <% end %>
+      </table>
+    </article>  
+  <% end %>  
+</div>
+</body>
+</html>
