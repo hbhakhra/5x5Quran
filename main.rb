@@ -13,7 +13,16 @@ class User
   property :lname, String
   property :email, String, :required => true
   property :created_at, DateTime, :default => Time.now
-end  
+  has n, :streaks
+end
+
+class Streak
+	include DataMapper::Resource
+	property :id, Serial
+	property :start, DateTime, :required => true, :default => Time.now
+	property :end, DateTime
+	belongs_to :user
+end
   
 DataMapper.finalize.auto_upgrade!  
 
@@ -32,6 +41,7 @@ post '/user' do
 	user.fname = params[:fname]
 	user.lname = params[:lname]
 	user.email = params[:email]
+	user.streaks << Streak.create
 	user.save
 	redirect '/users'
 end
