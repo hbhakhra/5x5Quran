@@ -10,6 +10,7 @@ class User
   include DataMapper::Resource  
   property :id, Serial  
   property :name, String, :unique => true, :required => true 
+  property :created_at, DateTime, :default => Time.now
 end  
   
 DataMapper.finalize.auto_upgrade!  

@@ -34,9 +34,7 @@
     <article>  
       <p>  
         <table>
-          <tr><td>First Name:</td><td><%= user.fname%> </td></tr>
-          <tr><td>Last Name:</td><td><%= user.lname%></td></tr>
-          <tr><td>Email:</td><td><%= user.email%></td></tr>
+          <tr><td>First Name:</td><td><%= user.name%> </td></tr>
         </table>
         <span><a href="/user/<%= user.id %>">[edit]</a></span>  
       </p>  
@@ -49,25 +47,6 @@
       </div>
       <table>
         <caption>Users streaks</caption>
-        <% user.streaks.each do |streak| %>
-          <tr>
-            <td>Start:</td>
-            <td><%= streak.start.strftime("%m/%d/%Y at %I:%M%p") %></td>
-            <td>End:</td>
-            <td>
-              <%= 
-                endTime = (streak.end) ? streak.end : Time.now
-                endTime.strftime("%m/%d/%Y at %I:%M%p")
-               %>
-            </td>
-            <td>Days:</td>
-            <td><%=
-              endTime = (streak.end) ? streak.end : Time.now
-              days = (endTime.to_date - streak.start.to_date).round
-              "#{days} days"
-            %></td>
-          </tr>
-        <% end %>
       </table>
     </article>  
   <% end %>  
